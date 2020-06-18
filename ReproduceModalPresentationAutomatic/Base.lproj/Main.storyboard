@@ -16,17 +16,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7Cx-vF-fdg">
-                                <rect key="frame" x="129" y="303.5" width="117" height="60"/>
+                                <rect key="frame" x="124.5" y="303.5" width="126" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QN6-aZ-X0m">
-                                        <rect key="frame" x="0.0" y="0.0" width="117" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="126" height="30"/>
                                         <state key="normal" title="System Behavior"/>
                                         <connections>
                                             <action selector="btnDefaultShowPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DC6-i3-JPh"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKh-k5-74L">
-                                        <rect key="frame" x="0.0" y="30" width="117" height="30"/>
+                                        <rect key="frame" x="0.0" y="30" width="126" height="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Custom Behavior"/>
                                         <connections>
                                             <action selector="btnCustomShowPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3CH-d1-DOA"/>

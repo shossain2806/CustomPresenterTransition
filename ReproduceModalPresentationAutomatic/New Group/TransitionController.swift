@@ -10,28 +10,15 @@ import UIKit
 
 class TransitionController: NSObject, UIViewControllerTransitioningDelegate {
 
-
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         let controller = PresentationController(presentedViewController: presented, presenting: presenting)
         return controller
     }
     
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return nil
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return nil
-    }
-}
 
-extension TransitionController: UIViewControllerAnimatedTransitioning {
-   
-    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.3
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return PresentingAnimator()
     }
     
-    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        
-    }
+    
 }
