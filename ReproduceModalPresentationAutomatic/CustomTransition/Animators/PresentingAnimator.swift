@@ -11,7 +11,7 @@ import UIKit
 class PresentingAnimator: NSObject, UIViewControllerAnimatedTransitioning {
  
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.3
+        return totalTransitionDuration
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {

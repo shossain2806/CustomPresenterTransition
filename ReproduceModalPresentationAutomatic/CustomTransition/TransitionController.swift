@@ -8,17 +8,90 @@
 
 import UIKit
 
-class TransitionController: NSObject, UIViewControllerTransitioningDelegate {
+let totalTransitionDuration = 0.3
 
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        let controller = PresentationController(presentedViewController: presented, presenting: presenting)
+class TransitionController: NSObject, UIViewControllerTransitioningDelegate {
+    
+    var dismissingAnimator: DismissingAnimator?
+    var initiallyInteractive = false
+    
+    lazy var panGesture: UIPanGestureRecognizer = {
+        let pan = UIPanGestureRecognizer()
+        pan.maximumNumberOfTouches = 1
+        pan.addTarget(self, action: #selector(initiateInteractively))
+        return pan
+    }()
+    
+    
+    @objc func initiateInteractively(_ panGesture: UIPanGestureRecognizer) {
+        if panGesture.state == .began && dismissingAnimator == nil {
+            initiallyInteractive = true
+           
+        }else {
+            initiallyInteractive = false
+        }
+    }
+    
+    func presentationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController?,
+        source: UIViewController) -> UIPresentationController? {
+        let controller = PresentationController(presentedViewController: presented,
+                                                presenting: presenting,
+                                                gesture: panGesture)
         return controller
     }
     
-
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    
+    func animationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController,
+        source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return PresentingAnimator()
     }
     
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return self
+    }
     
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return self
+    }
+    
+    
+}
+
+extension TransitionController: UIViewControllerAnimatedTransitioning {
+
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return totalTransitionDuration
+    }
+    
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {}
+    
+    func animationEnded(_ transitionCompleted: Bool) {
+        dismissingAnimator = nil
+        initiallyInteractive = false
+    }
+    
+    func interruptibleAnimator(using transitionContext: UIViewControllerContextTransitioning) -> UIViewImplicitlyAnimating {
+        // The transition driver (helper object), creates the UIViewPropertyAnimator (transitionAnimator)
+        // to be used for this transition. It must live the lifetime of the transitionContext.
+        return (dismissingAnimator?.transitionAnimator)!
+    }
+}
+
+
+extension TransitionController: UIViewControllerInteractiveTransitioning {
+    
+    func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
+        // Create our helper object to manage the transition for the given transitionContext.
+        dismissingAnimator = DismissingAnimator(context: transitionContext, gesture: panGesture)
+        
+    }
+    
+    var wantsInteractiveStart: Bool {
+        // Determines whether the transition begins in an interactive state
+        return initiallyInteractive
+    }
 }
