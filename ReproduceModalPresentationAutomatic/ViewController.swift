@@ -19,16 +19,19 @@ class ViewController: UIViewController {
     
     @IBAction func btnDefaultShowPressed(_ sender: Any) {
         let showVC = SecondaryViewController()
-        self.present(showVC, animated: true, completion: nil)
+        let navController = UINavigationController(rootViewController: showVC)
+        self.present(navController, animated: true, completion: nil)
     }
 
     @IBAction func btnCustomShowPressed(_ sender: Any) {
         let showVC = SecondaryViewController()
-        showVC.transitioningDelegate = transitionDriver
-        showVC.modalPresentationStyle = .custom
-    
-        self.present(showVC, animated: true, completion: nil)
+        let navController = UINavigationController(rootViewController: showVC)
+        navController.transitioningDelegate = transitionDriver
+        navController.modalPresentationStyle = .custom
+        
+        self.present(navController, animated: true, completion: nil)
     }
+    
     
 }
 

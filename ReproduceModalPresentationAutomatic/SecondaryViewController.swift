@@ -14,8 +14,9 @@ class SecondaryViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .red
         // Do any additional setup after loading the view.
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(btnDismissPressed)))
-    
+        
+        let rightButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(btnDismissPressed))
+        self.navigationItem.rightBarButtonItem = rightButton
     }
     
     @objc func btnDismissPressed() {
