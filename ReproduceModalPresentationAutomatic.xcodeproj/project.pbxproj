@@ -13,6 +13,10 @@
 		8AD68E09249B23C6000FE03D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AD68E07249B23C6000FE03D /* Main.storyboard */; };
 		8AD68E0B249B23C8000FE03D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AD68E0A249B23C8000FE03D /* Assets.xcassets */; };
 		8AD68E0E249B23C8000FE03D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AD68E0C249B23C8000FE03D /* LaunchScreen.storyboard */; };
+		8AD68E16249B23F3000FE03D /* SecondaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD68E15249B23F3000FE03D /* SecondaryViewController.swift */; };
+		8AD68E18249B264D000FE03D /* TransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD68E17249B264D000FE03D /* TransitionDriver.swift */; };
+		8AD68E1A249B2762000FE03D /* AutomaticLikePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD68E19249B2762000FE03D /* AutomaticLikePresentationController.swift */; };
+		8AD68E1C249B399B000FE03D /* InteractiveTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD68E1B249B399B000FE03D /* InteractiveTransitionAnimator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		8AD68E0A249B23C8000FE03D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8AD68E0D249B23C8000FE03D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8AD68E0F249B23C8000FE03D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8AD68E15249B23F3000FE03D /* SecondaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryViewController.swift; sourceTree = "<group>"; };
+		8AD68E17249B264D000FE03D /* TransitionDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionDriver.swift; sourceTree = "<group>"; };
+		8AD68E19249B2762000FE03D /* AutomaticLikePresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticLikePresentationController.swift; sourceTree = "<group>"; };
+		8AD68E1B249B399B000FE03D /* InteractiveTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveTransitionAnimator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +71,10 @@
 				8AD68E0A249B23C8000FE03D /* Assets.xcassets */,
 				8AD68E0C249B23C8000FE03D /* LaunchScreen.storyboard */,
 				8AD68E0F249B23C8000FE03D /* Info.plist */,
+				8AD68E15249B23F3000FE03D /* SecondaryViewController.swift */,
+				8AD68E17249B264D000FE03D /* TransitionDriver.swift */,
+				8AD68E19249B2762000FE03D /* AutomaticLikePresentationController.swift */,
+				8AD68E1B249B399B000FE03D /* InteractiveTransitionAnimator.swift */,
 			);
 			path = ReproduceModalPresentationAutomatic;
 			sourceTree = "<group>";
@@ -140,7 +152,11 @@
 			files = (
 				8AD68E06249B23C6000FE03D /* ViewController.swift in Sources */,
 				8AD68E02249B23C6000FE03D /* AppDelegate.swift in Sources */,
+				8AD68E1C249B399B000FE03D /* InteractiveTransitionAnimator.swift in Sources */,
 				8AD68E04249B23C6000FE03D /* SceneDelegate.swift in Sources */,
+				8AD68E18249B264D000FE03D /* TransitionDriver.swift in Sources */,
+				8AD68E1A249B2762000FE03D /* AutomaticLikePresentationController.swift in Sources */,
+				8AD68E16249B23F3000FE03D /* SecondaryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
