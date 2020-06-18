@@ -1,5 +1,5 @@
 //
-//  TransitionDriver.swift
+//  TransitionController.swift
 //  ReproduceModalPresentationAutomatic
 //
 //  Created by Md. Saber Hossain on 18/6/20.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-class TransitionDriver: NSObject, UIViewControllerTransitioningDelegate {
+class TransitionController: NSObject, UIViewControllerTransitioningDelegate {
 
 
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        let controller = AutomaticLikePresentationController(presentedViewController: presented, presenting: presenting)
+        let controller = PresentationController(presentedViewController: presented, presenting: presenting)
         return controller
     }
     
@@ -22,5 +22,16 @@ class TransitionDriver: NSObject, UIViewControllerTransitioningDelegate {
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return nil
+    }
+}
+
+extension TransitionController: UIViewControllerAnimatedTransitioning {
+   
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return 0.3
+    }
+    
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        
     }
 }

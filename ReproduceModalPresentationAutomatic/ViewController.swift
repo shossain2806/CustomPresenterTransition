@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let transitionDriver = TransitionDriver()
+    let transitionDriver = TransitionController()
     
     override func viewDidLoad() {
         super.viewDidLoad()

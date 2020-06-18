@@ -1,5 +1,5 @@
 //
-//  AutomaticLikePresentationController.swift
+//  PresentationController.swift
 //  ReproduceModalPresentationAutomatic
 //
 //  Created by Md. Saber Hossain on 18/6/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AutomaticLikePresentationController: UIPresentationController {
+class PresentationController: UIPresentationController {
     
     let backgroundView = UIView ()
     
@@ -25,7 +25,7 @@ class AutomaticLikePresentationController: UIPresentationController {
     private func configurePresentedView() {
         guard let presentedView = self.presentedView, let containerView = self.containerView else { return }
       
-        presentedView.layer.cornerRadius = 12
+        presentedView.layer.cornerRadius = 10
         // apply
         presentedView.translatesAutoresizingMaskIntoConstraints = false
     
@@ -61,12 +61,12 @@ class AutomaticLikePresentationController: UIPresentationController {
             coordinator.animate(alongsideTransition: { context in
                 self.backgroundView.alpha = 1.0
                 self.presentingViewController.view.transform = CGAffineTransform(scaleX: 0.90, y: 0.90)
-                self.presentingViewController.view.layer.cornerRadius = 12
+                self.presentingViewController.view.layer.cornerRadius = 10
             }, completion: nil)
         } else{
             self.backgroundView.alpha = 1.0
             self.presentingViewController.view.transform = CGAffineTransform(scaleX: 0.90, y: 0.90)
-            self.presentingViewController.view.layer.cornerRadius = 12
+            self.presentingViewController.view.layer.cornerRadius = 10
         }
     }
     
