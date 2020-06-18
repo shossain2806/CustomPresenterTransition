@@ -18,7 +18,6 @@
 		8AD68E16249B23F3000FE03D /* SecondaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD68E15249B23F3000FE03D /* SecondaryViewController.swift */; };
 		8AD68E18249B264D000FE03D /* TransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD68E17249B264D000FE03D /* TransitionController.swift */; };
 		8AD68E1A249B2762000FE03D /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD68E19249B2762000FE03D /* PresentationController.swift */; };
-		8AD68E20249B464C000FE03D /* TransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD68E1F249B464C000FE03D /* TransitionDriver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +34,6 @@
 		8AD68E15249B23F3000FE03D /* SecondaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryViewController.swift; sourceTree = "<group>"; };
 		8AD68E17249B264D000FE03D /* TransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionController.swift; sourceTree = "<group>"; };
 		8AD68E19249B2762000FE03D /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
-		8AD68E1F249B464C000FE03D /* TransitionDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionDriver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +47,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8AC967AA249B4D950052C593 /* Animators */ = {
+			isa = PBXGroup;
+			children = (
+				8AC967A8249B48570052C593 /* DismissingAnimator.swift */,
+				8AC967A6249B484D0052C593 /* PresentingAnimator.swift */,
+			);
+			path = Animators;
+			sourceTree = "<group>";
+		};
 		8AD68DF5249B23C6000FE03D = {
 			isa = PBXGroup;
 			children = (
@@ -68,7 +75,7 @@
 		8AD68E00249B23C6000FE03D /* ReproduceModalPresentationAutomatic */ = {
 			isa = PBXGroup;
 			children = (
-				8AD68E1D249B462C000FE03D /* New Group */,
+				8AD68E1D249B462C000FE03D /* CustomTransition */,
 				8AD68E01249B23C6000FE03D /* AppDelegate.swift */,
 				8AD68E03249B23C6000FE03D /* SceneDelegate.swift */,
 				8AD68E05249B23C6000FE03D /* ViewController.swift */,
@@ -81,16 +88,14 @@
 			path = ReproduceModalPresentationAutomatic;
 			sourceTree = "<group>";
 		};
-		8AD68E1D249B462C000FE03D /* New Group */ = {
+		8AD68E1D249B462C000FE03D /* CustomTransition */ = {
 			isa = PBXGroup;
 			children = (
+				8AC967AA249B4D950052C593 /* Animators */,
 				8AD68E17249B264D000FE03D /* TransitionController.swift */,
-				8AC967A8249B48570052C593 /* DismissingAnimator.swift */,
 				8AD68E19249B2762000FE03D /* PresentationController.swift */,
-				8AD68E1F249B464C000FE03D /* TransitionDriver.swift */,
-				8AC967A6249B484D0052C593 /* PresentingAnimator.swift */,
 			);
-			path = "New Group";
+			path = CustomTransition;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,7 +169,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8AD68E20249B464C000FE03D /* TransitionDriver.swift in Sources */,
 				8AD68E06249B23C6000FE03D /* ViewController.swift in Sources */,
 				8AD68E02249B23C6000FE03D /* AppDelegate.swift in Sources */,
 				8AD68E04249B23C6000FE03D /* SceneDelegate.swift in Sources */,
