@@ -64,8 +64,8 @@ class DismissingAnimator: NSObject {
     
     private func completionPosition() -> UIViewAnimatingPosition {
         let completionThreshold: CGFloat = 0.33
-        
-        if transitionAnimator.fractionComplete > completionThreshold {
+        let velocity = panGestureRecognizer.velocity(in: panGestureRecognizer.view).y
+        if transitionAnimator.fractionComplete > completionThreshold || velocity > 1200 {
             return .end
         } else {
             return .start
@@ -85,6 +85,7 @@ class DismissingAnimator: NSObject {
         // Begin the animation phase of the transition to either the start or finsh position
         animate(completionPosition)
     }
+    
     func animate(_ toPosition: UIViewAnimatingPosition) {
         transitionAnimator.isReversed = (toPosition == .start)
         
