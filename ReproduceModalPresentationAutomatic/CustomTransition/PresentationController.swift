@@ -54,25 +54,23 @@ class PresentationController: UIPresentationController {
         }
     }
     
-    override func dismissalTransitionWillBegin() {
-      
-        if let coordinator = self.presentedViewController.transitionCoordinator {
-            coordinator.animate(alongsideTransition: { context in
-                self.backgroundView.alpha = 0.0
-                self.presentingViewController.view.transform = .identity
-                self.presentingViewController.view.layer.cornerRadius = 0.0
-            }, completion: nil)
-        } else{
+    //to make disappearing animation interruptible we cannot use `dismissalTransitionWillBegin`
+    var dimissAnimation : () -> Void {
+        let animationClosure = { [unowned self] in
+            self.backgroundView.alpha = 0.0
             self.presentingViewController.view.transform = .identity
             self.presentingViewController.view.layer.cornerRadius = 0.0
         }
+        return animationClosure
     }
 
 }
 
 extension PresentationController: UIGestureRecognizerDelegate {
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     

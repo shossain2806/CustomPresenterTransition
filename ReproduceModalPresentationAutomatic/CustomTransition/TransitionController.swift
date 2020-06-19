@@ -14,6 +14,7 @@ class TransitionController: NSObject, UIViewControllerTransitioningDelegate {
     
     var dismissingAnimator: DismissingAnimator?
     var initiallyInteractive = false
+    var presentationController : PresentationController?
     
     lazy var panGesture: UIPanGestureRecognizer = {
         let pan = UIPanGestureRecognizer()
@@ -36,10 +37,10 @@ class TransitionController: NSObject, UIViewControllerTransitioningDelegate {
         forPresented presented: UIViewController,
         presenting: UIViewController?,
         source: UIViewController) -> UIPresentationController? {
-        let controller = PresentationController(presentedViewController: presented,
+        presentationController = PresentationController(presentedViewController: presented,
                                                 presenting: presenting,
                                                 gesture: panGesture)
-        return controller
+        return presentationController
     }
     
     
@@ -84,13 +85,15 @@ extension TransitionController: UIViewControllerAnimatedTransitioning {
 extension TransitionController: UIViewControllerInteractiveTransitioning {
     
     func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
-        // Create our helper object to manage the transition for the given transitionContext.
-        dismissingAnimator = DismissingAnimator(context: transitionContext, gesture: panGesture)
+       
+        let alongsideAnimation = presentationController?.dimissAnimation
+        dismissingAnimator = DismissingAnimator(context: transitionContext,
+                                                gesture: panGesture,
+                                                alongsideAnimation: alongsideAnimation)
         
     }
     
     var wantsInteractiveStart: Bool {
-        // Determines whether the transition begins in an interactive state
         return initiallyInteractive
     }
 }

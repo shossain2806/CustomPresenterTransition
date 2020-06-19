@@ -14,9 +14,10 @@ class DismissingAnimator: NSObject {
     var isInteractive: Bool { return transitionContext.isInteractive }
     let transitionContext: UIViewControllerContextTransitioning
     let translationYMax : CGFloat
+
     private let panGestureRecognizer: UIPanGestureRecognizer
     
-    init(context: UIViewControllerContextTransitioning, gesture: UIPanGestureRecognizer) {
+    init(context: UIViewControllerContextTransitioning, gesture: UIPanGestureRecognizer, alongsideAnimation: (() -> Void)?) {
         self.transitionContext = context
         self.panGestureRecognizer = gesture
         let fromViewController = context.viewController(forKey: .from)!
@@ -33,12 +34,17 @@ class DismissingAnimator: NSObject {
                                                    y: fromView.frame.size.height)
         })
         
+        if let animation = alongsideAnimation {
+            transitionAnimator.addAnimations(animation)
+        }
+      
         transitionAnimator.addCompletion { [unowned self] (position) in
             
             let completed = (position == .end)
             self.transitionContext.completeTransition(completed)
         }
         
+       
         if context.isInteractive == false {
             animate(.end)
         }
