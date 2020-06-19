@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8AC967A7249B484D0052C593 /* PresentingAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC967A6249B484D0052C593 /* PresentingAnimator.swift */; };
-		8AC967A9249B48570052C593 /* DismissingAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC967A8249B48570052C593 /* DismissingAnimator.swift */; };
+		8AC967A9249B48570052C593 /* DismissingTransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC967A8249B48570052C593 /* DismissingTransitionDriver.swift */; };
 		8AD68E02249B23C6000FE03D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD68E01249B23C6000FE03D /* AppDelegate.swift */; };
 		8AD68E04249B23C6000FE03D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD68E03249B23C6000FE03D /* SceneDelegate.swift */; };
 		8AD68E06249B23C6000FE03D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD68E05249B23C6000FE03D /* ViewController.swift */; };
@@ -22,8 +22,8 @@
 
 /* Begin PBXFileReference section */
 		8AC967A6249B484D0052C593 /* PresentingAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentingAnimator.swift; sourceTree = "<group>"; };
-		8AC967A8249B48570052C593 /* DismissingAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissingAnimator.swift; sourceTree = "<group>"; };
-		8AD68DFE249B23C6000FE03D /* ReproduceModalPresentationAutomatic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReproduceModalPresentationAutomatic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AC967A8249B48570052C593 /* DismissingTransitionDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissingTransitionDriver.swift; sourceTree = "<group>"; };
+		8AD68DFE249B23C6000FE03D /* CustomPresenterTransition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomPresenterTransition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AD68E01249B23C6000FE03D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AD68E03249B23C6000FE03D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		8AD68E05249B23C6000FE03D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -50,7 +50,7 @@
 		8AC967AA249B4D950052C593 /* Animators */ = {
 			isa = PBXGroup;
 			children = (
-				8AC967A8249B48570052C593 /* DismissingAnimator.swift */,
+				8AC967A8249B48570052C593 /* DismissingTransitionDriver.swift */,
 				8AC967A6249B484D0052C593 /* PresentingAnimator.swift */,
 			);
 			path = Animators;
@@ -59,7 +59,7 @@
 		8AD68DF5249B23C6000FE03D = {
 			isa = PBXGroup;
 			children = (
-				8AD68E00249B23C6000FE03D /* ReproduceModalPresentationAutomatic */,
+				8AD68E00249B23C6000FE03D /* CustomPresenterTransition */,
 				8AD68DFF249B23C6000FE03D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -67,12 +67,12 @@
 		8AD68DFF249B23C6000FE03D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AD68DFE249B23C6000FE03D /* ReproduceModalPresentationAutomatic.app */,
+				8AD68DFE249B23C6000FE03D /* CustomPresenterTransition.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8AD68E00249B23C6000FE03D /* ReproduceModalPresentationAutomatic */ = {
+		8AD68E00249B23C6000FE03D /* CustomPresenterTransition */ = {
 			isa = PBXGroup;
 			children = (
 				8AD68E1D249B462C000FE03D /* CustomTransition */,
@@ -85,7 +85,7 @@
 				8AD68E0F249B23C8000FE03D /* Info.plist */,
 				8AD68E15249B23F3000FE03D /* SecondaryViewController.swift */,
 			);
-			path = ReproduceModalPresentationAutomatic;
+			path = CustomPresenterTransition;
 			sourceTree = "<group>";
 		};
 		8AD68E1D249B462C000FE03D /* CustomTransition */ = {
@@ -101,9 +101,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8AD68DFD249B23C6000FE03D /* ReproduceModalPresentationAutomatic */ = {
+		8AD68DFD249B23C6000FE03D /* CustomPresenterTransition */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8AD68E12249B23C8000FE03D /* Build configuration list for PBXNativeTarget "ReproduceModalPresentationAutomatic" */;
+			buildConfigurationList = 8AD68E12249B23C8000FE03D /* Build configuration list for PBXNativeTarget "CustomPresenterTransition" */;
 			buildPhases = (
 				8AD68DFA249B23C6000FE03D /* Sources */,
 				8AD68DFB249B23C6000FE03D /* Frameworks */,
@@ -113,9 +113,9 @@
 			);
 			dependencies = (
 			);
-			name = ReproduceModalPresentationAutomatic;
+			name = CustomPresenterTransition;
 			productName = ReproduceModalPresentationAutomatic;
-			productReference = 8AD68DFE249B23C6000FE03D /* ReproduceModalPresentationAutomatic.app */;
+			productReference = 8AD68DFE249B23C6000FE03D /* CustomPresenterTransition.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -133,7 +133,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8AD68DF9249B23C6000FE03D /* Build configuration list for PBXProject "ReproduceModalPresentationAutomatic" */;
+			buildConfigurationList = 8AD68DF9249B23C6000FE03D /* Build configuration list for PBXProject "CustomPresenterTransition" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -146,7 +146,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8AD68DFD249B23C6000FE03D /* ReproduceModalPresentationAutomatic */,
+				8AD68DFD249B23C6000FE03D /* CustomPresenterTransition */,
 			);
 		};
 /* End PBXProject section */
@@ -175,7 +175,7 @@
 				8AD68E18249B264D000FE03D /* TransitionController.swift in Sources */,
 				8AC967A7249B484D0052C593 /* PresentingAnimator.swift in Sources */,
 				8AD68E1A249B2762000FE03D /* PresentationController.swift in Sources */,
-				8AC967A9249B48570052C593 /* DismissingAnimator.swift in Sources */,
+				8AC967A9249B48570052C593 /* DismissingTransitionDriver.swift in Sources */,
 				8AD68E16249B23F3000FE03D /* SecondaryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -322,12 +322,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XYSCZDXKR7;
-				INFOPLIST_FILE = ReproduceModalPresentationAutomatic/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/CustomPresenterTransition/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.saber.ReproduceModalPresentationAutomatic;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saber.CustomPresenterTransition;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -340,12 +341,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XYSCZDXKR7;
-				INFOPLIST_FILE = ReproduceModalPresentationAutomatic/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/CustomPresenterTransition/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.saber.ReproduceModalPresentationAutomatic;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saber.CustomPresenterTransition;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -355,7 +357,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8AD68DF9249B23C6000FE03D /* Build configuration list for PBXProject "ReproduceModalPresentationAutomatic" */ = {
+		8AD68DF9249B23C6000FE03D /* Build configuration list for PBXProject "CustomPresenterTransition" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8AD68E10249B23C8000FE03D /* Debug */,
@@ -364,7 +366,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8AD68E12249B23C8000FE03D /* Build configuration list for PBXNativeTarget "ReproduceModalPresentationAutomatic" */ = {
+		8AD68E12249B23C8000FE03D /* Build configuration list for PBXNativeTarget "CustomPresenterTransition" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8AD68E13249B23C8000FE03D /* Debug */,

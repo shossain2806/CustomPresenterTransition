@@ -1,6 +1,6 @@
 //
 //  PresentationController.swift
-//  ReproduceModalPresentationAutomatic
+//  CustomPresenterTransition
 //
 //  Created by Md. Saber Hossain on 18/6/20.
 //  Copyright © 2020 Md. Saber Hossain. All rights reserved.
@@ -13,14 +13,16 @@ class PresentationController: UIPresentationController {
     let backgroundView = UIView ()
     let panGesture : UIPanGestureRecognizer
     
-     init(
-        presentedViewController: UIViewController,
-        presenting presentingViewController: UIViewController?, gesture: UIPanGestureRecognizer) {
+    init(presentedViewController: UIViewController,
+         presenting presentingViewController: UIViewController?,
+         gesture: UIPanGestureRecognizer
+    ) {
         self.panGesture = gesture
-        super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
+        super.init(presentedViewController: presentedViewController,
+                   presenting: presentingViewController)
         configureBackgroundView()
         configureGesture()
-
+        
     }
     
     override var adaptivePresentationStyle: UIModalPresentationStyle {
@@ -32,13 +34,17 @@ class PresentationController: UIPresentationController {
     }
     
     override func containerViewWillLayoutSubviews() {
-        guard let containerView = self.containerView else { return }
+        guard
+            let containerView = self.containerView
+        else { return }
         configurePresentedView()
         backgroundView.frame = containerView.bounds
     }
     
     override func presentationTransitionWillBegin() {
-        guard let containerView = self.containerView else { return }
+        guard
+            let containerView = self.containerView
+        else { return }
         containerView.insertSubview(backgroundView, at: 0)
         
         if let coordinator = self.presentedViewController.transitionCoordinator {
@@ -63,31 +69,21 @@ class PresentationController: UIPresentationController {
         }
         return animationClosure
     }
-
-}
-
-extension PresentationController: UIGestureRecognizerDelegate {
     
-    func gestureRecognizer(
-        _ gestureRecognizer: UIGestureRecognizer,
-        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        let translation = panGesture.translation(in: panGesture.view)
-        let translationIsVertical = translation.y > 0
-        return translationIsVertical
-    }
 }
-
 
 extension PresentationController {
-  
+    
     private func configureGesture() {
         presentedView?.addGestureRecognizer(panGesture)
         panGesture.addTarget(self, action: #selector(initiateInteractively(_:)))
-       
+        
+    }
+    
+    @objc private func initiateInteractively(_ panGesture: UIPanGestureRecognizer) {
+        if panGesture.state == .began {
+            self.presentedViewController.dismiss(animated: true, completion: nil)
+        }
     }
     
     private func configureBackgroundView() {
@@ -96,8 +92,11 @@ extension PresentationController {
     }
     
     private func configurePresentedView() {
-        guard let presentedView = self.presentedView, let containerView = self.containerView else { return }
-      
+        guard
+            let presentedView = self.presentedView,
+            let containerView = self.containerView
+        else { return }
+        
         presentedView.layer.cornerRadius = 10
         presentedView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
@@ -111,11 +110,7 @@ extension PresentationController {
         NSLayoutConstraint.activate(constraints)
     }
     
-    @objc private func initiateInteractively(_ panGesture: UIPanGestureRecognizer) {
-        if panGesture.state == .began {
-            self.presentedViewController.dismiss(animated: true, completion: nil)
-        }
-    }
+    
     
 }
 

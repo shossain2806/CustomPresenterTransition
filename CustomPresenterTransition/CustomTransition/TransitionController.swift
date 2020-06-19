@@ -1,6 +1,6 @@
 //
 //  TransitionController.swift
-//  ReproduceModalPresentationAutomatic
+//  CustomPresenterTransition
 //
 //  Created by Md. Saber Hossain on 18/6/20.
 //  Copyright © 2020 Md. Saber Hossain. All rights reserved.
@@ -12,24 +12,23 @@ let totalTransitionDuration = 0.3
 
 class TransitionController: NSObject, UIViewControllerTransitioningDelegate {
     
-    var dismissingAnimator: DismissingAnimator?
+    var transitionDriver: DismissingTransitionDriver?
     var initiallyInteractive = false
     var presentationController : PresentationController?
     
     lazy var panGesture: UIPanGestureRecognizer = {
         let pan = UIPanGestureRecognizer()
         pan.maximumNumberOfTouches = 1
+        pan.delegate = self
         pan.addTarget(self, action: #selector(initiateInteractively))
         return pan
     }()
     
     
     @objc func initiateInteractively(_ panGesture: UIPanGestureRecognizer) {
-        if panGesture.state == .began && dismissingAnimator == nil {
+        if panGesture.state == .began && transitionDriver == nil {
             initiallyInteractive = true
            
-        }else {
-            initiallyInteractive = false
         }
     }
     
@@ -62,6 +61,26 @@ class TransitionController: NSObject, UIViewControllerTransitioningDelegate {
     
 }
 
+extension TransitionController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard let dismissingAnimator = self.transitionDriver else {
+            let translation = panGesture.translation(in: panGesture.view)
+            let translationIsVertical = (translation.y > 0) && (abs(translation.y) > abs(translation.x))
+            return translationIsVertical
+        }
+               
+        return dismissingAnimator.isInteractive
+    }
+}
+
+
 // Manage interactive dismiss animation
 extension TransitionController: UIViewControllerAnimatedTransitioning {
 
@@ -72,12 +91,12 @@ extension TransitionController: UIViewControllerAnimatedTransitioning {
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {}
     
     func animationEnded(_ transitionCompleted: Bool) {
-        dismissingAnimator = nil
+        transitionDriver = nil
         initiallyInteractive = false
     }
     
     func interruptibleAnimator(using transitionContext: UIViewControllerContextTransitioning) -> UIViewImplicitlyAnimating {
-        return (dismissingAnimator?.transitionAnimator)!
+        return (transitionDriver?.transitionAnimator)!
     }
 }
 
@@ -87,7 +106,7 @@ extension TransitionController: UIViewControllerInteractiveTransitioning {
     func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
        
         let alongsideAnimation = presentationController?.dimissAnimation
-        dismissingAnimator = DismissingAnimator(context: transitionContext,
+        transitionDriver = DismissingTransitionDriver(context: transitionContext,
                                                 gesture: panGesture,
                                                 alongsideAnimation: alongsideAnimation)
         

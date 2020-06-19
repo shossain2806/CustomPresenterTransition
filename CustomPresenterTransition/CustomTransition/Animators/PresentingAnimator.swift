@@ -1,6 +1,6 @@
 //
 //  PresentingAnimator.swift
-//  ReproduceModalPresentationAutomatic
+//  CustomPresenterTransition
 //
 //  Created by Md. Saber Hossain on 18/6/20.
 //  Copyright © 2020 Md. Saber Hossain. All rights reserved.
@@ -9,7 +9,7 @@
 import UIKit
 
 class PresentingAnimator: NSObject, UIViewControllerAnimatedTransitioning {
- 
+    
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return totalTransitionDuration
     }
@@ -23,9 +23,9 @@ class PresentingAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         toView.frame = transitionContext.finalFrame(for: toViewController)
         toView.transform = CGAffineTransform(translationX: 0, y: toView.frame.size.height)
         let animator = UIViewPropertyAnimator(
-        duration: transitionDuration(using: transitionContext),
-        curve: .easeOut) {
-            toView.transform = .identity
+            duration: transitionDuration(using: transitionContext),
+            curve: .easeOut) {
+                toView.transform = .identity
         }
         
         animator.addCompletion { position in
