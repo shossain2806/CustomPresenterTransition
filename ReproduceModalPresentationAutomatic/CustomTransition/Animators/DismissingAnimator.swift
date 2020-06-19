@@ -26,8 +26,11 @@ class DismissingAnimator: NSObject {
         super.init()
         self.panGestureRecognizer.addTarget(self, action: #selector(updateInteraction(_:)))
         
-        transitionAnimator = UIViewPropertyAnimator(duration: totalTransitionDuration, curve: .easeOut, animations:{
-            fromView.transform = CGAffineTransform(translationX: 0, y: fromView.frame.size.height)
+        transitionAnimator = UIViewPropertyAnimator(duration: totalTransitionDuration,
+                                                    curve: .easeOut,
+                                                    animations:{
+            fromView.transform = CGAffineTransform(translationX: 0,
+                                                   y: fromView.frame.size.height)
         })
         
         transitionAnimator.addCompletion { [unowned self] (position) in

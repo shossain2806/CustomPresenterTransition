@@ -101,6 +101,8 @@ extension PresentationController {
         guard let presentedView = self.presentedView, let containerView = self.containerView else { return }
       
         presentedView.layer.cornerRadius = 10
+        presentedView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
         presentedView.translatesAutoresizingMaskIntoConstraints = false
         let constraints : [NSLayoutConstraint] = [
             presentedView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),

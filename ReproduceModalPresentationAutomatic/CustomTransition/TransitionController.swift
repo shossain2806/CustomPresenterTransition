@@ -61,6 +61,7 @@ class TransitionController: NSObject, UIViewControllerTransitioningDelegate {
     
 }
 
+// Manage interactive dismiss animation
 extension TransitionController: UIViewControllerAnimatedTransitioning {
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
@@ -75,8 +76,6 @@ extension TransitionController: UIViewControllerAnimatedTransitioning {
     }
     
     func interruptibleAnimator(using transitionContext: UIViewControllerContextTransitioning) -> UIViewImplicitlyAnimating {
-        // The transition driver (helper object), creates the UIViewPropertyAnimator (transitionAnimator)
-        // to be used for this transition. It must live the lifetime of the transitionContext.
         return (dismissingAnimator?.transitionAnimator)!
     }
 }
