@@ -14,7 +14,7 @@ class TransitionController: NSObject, UIViewControllerTransitioningDelegate {
     
     var transitionDriver: DismissingTransitionDriver?
     var initiallyInteractive = false
-    var presentationController : PresentationController?
+    weak var presentationController : PresentationController?
     
     lazy var panGesture: UIPanGestureRecognizer = {
         let pan = UIPanGestureRecognizer()
@@ -36,9 +36,10 @@ class TransitionController: NSObject, UIViewControllerTransitioningDelegate {
         forPresented presented: UIViewController,
         presenting: UIViewController?,
         source: UIViewController) -> UIPresentationController? {
-        presentationController = PresentationController(presentedViewController: presented,
+        let controller = PresentationController(presentedViewController: presented,
                                                 presenting: presenting,
                                                 gesture: panGesture)
+        presentationController = controller
         return presentationController
     }
     
