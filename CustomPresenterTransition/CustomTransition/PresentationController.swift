@@ -78,6 +78,7 @@ extension PresentationController {
     
     private func configureGesture() {
         presentedView?.addGestureRecognizer(panGesture)
+        panGesture.delegate = self
         panGesture.addTarget(self, action: #selector(initiateInteractively(_:)))
         
     }
