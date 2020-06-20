@@ -10,27 +10,24 @@ import UIKit
 
 let totalTransitionDuration = 0.3
 
+protocol InteractiveTransitionController: class {
+    var isInteractive : Bool { get set }
+    var currentlyTranstionRunning : Bool { get }
+    var gesture: UIPanGestureRecognizer { get }
+}
+
 class TransitionController: NSObject, UIViewControllerTransitioningDelegate {
     
     var transitionDriver: DismissingTransitionDriver?
     var initiallyInteractive = false
+   
     weak var presentationController : PresentationController?
     
     lazy var panGesture: UIPanGestureRecognizer = {
         let pan = UIPanGestureRecognizer()
         pan.maximumNumberOfTouches = 1
-        pan.delegate = self
-        pan.addTarget(self, action: #selector(initiateInteractively))
         return pan
     }()
-    
-    
-    @objc func initiateInteractively(_ panGesture: UIPanGestureRecognizer) {
-        if panGesture.state == .began && transitionDriver == nil {
-            initiallyInteractive = true
-           
-        }
-    }
     
     func presentationController(
         forPresented presented: UIViewController,
@@ -38,12 +35,12 @@ class TransitionController: NSObject, UIViewControllerTransitioningDelegate {
         source: UIViewController) -> UIPresentationController? {
         let controller = PresentationController(presentedViewController: presented,
                                                 presenting: presenting,
-                                                gesture: panGesture)
+                                                transitionController: self)
         presentationController = controller
         return presentationController
     }
-    
-    
+  
+    // non interactive transition in presenting
     func animationController(
         forPresented presented: UIViewController,
         presenting: UIViewController,
@@ -51,6 +48,8 @@ class TransitionController: NSObject, UIViewControllerTransitioningDelegate {
         return PresentingAnimator()
     }
     
+    
+    //interactive transition in dismissing
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self
     }
@@ -59,30 +58,31 @@ class TransitionController: NSObject, UIViewControllerTransitioningDelegate {
         return self
     }
     
-    
 }
 
-extension TransitionController: UIGestureRecognizerDelegate {
-    
-    func gestureRecognizer(
-        _ gestureRecognizer: UIGestureRecognizer,
-        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+//MARK:- Manage interactive dismiss transition
+
+extension TransitionController: InteractiveTransitionController {
+   
+    var gesture: UIPanGestureRecognizer {
+        return panGesture
     }
     
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard let dismissingAnimator = self.transitionDriver else {
-            let translation = panGesture.translation(in: panGesture.view)
-            let translationIsVertical = (translation.y > 0) && (abs(translation.y) > abs(translation.x))
-            return translationIsVertical
+    var isInteractive: Bool {
+        get {
+            return initiallyInteractive
         }
-               
-        return dismissingAnimator.isInteractive
+        set {
+            initiallyInteractive = newValue
+        }
     }
+    
+    var currentlyTranstionRunning: Bool {
+        return transitionDriver != nil
+    }
+    
 }
 
-
-// Manage interactive dismiss animation
 extension TransitionController: UIViewControllerAnimatedTransitioning {
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
@@ -101,7 +101,6 @@ extension TransitionController: UIViewControllerAnimatedTransitioning {
     }
 }
 
-
 extension TransitionController: UIViewControllerInteractiveTransitioning {
     
     func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
@@ -117,3 +116,4 @@ extension TransitionController: UIViewControllerInteractiveTransitioning {
         return initiallyInteractive
     }
 }
+

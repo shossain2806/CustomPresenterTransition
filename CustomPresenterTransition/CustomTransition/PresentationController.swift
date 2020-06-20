@@ -12,12 +12,14 @@ class PresentationController: UIPresentationController {
     
     let backgroundView = UIView ()
     let panGesture : UIPanGestureRecognizer
+    weak var controller : InteractiveTransitionController?
     
     init(presentedViewController: UIViewController,
          presenting presentingViewController: UIViewController?,
-         gesture: UIPanGestureRecognizer
+         transitionController: InteractiveTransitionController
     ) {
-        self.panGesture = gesture
+        self.controller = transitionController
+        self.panGesture = transitionController.gesture
         super.init(presentedViewController: presentedViewController,
                    presenting: presentingViewController)
         configureBackgroundView()
@@ -80,12 +82,6 @@ extension PresentationController {
         
     }
     
-    @objc private func initiateInteractively(_ panGesture: UIPanGestureRecognizer) {
-        if panGesture.state == .began {
-            self.presentedViewController.dismiss(animated: true, completion: nil)
-        }
-    }
-    
     private func configureBackgroundView() {
         backgroundView.backgroundColor = UIColor(white: 0, alpha: 0.4)
         backgroundView.alpha = 0.0
@@ -110,7 +106,30 @@ extension PresentationController {
         NSLayoutConstraint.activate(constraints)
     }
     
+    @objc private func initiateInteractively(_ panGesture: UIPanGestureRecognizer) {
+        if panGesture.state == .began && self.controller?.currentlyTranstionRunning == false {
+            self.controller?.isInteractive = true
+            self.presentingViewController.dismiss(animated: true, completion: nil)
+        }
+    }
+}
+
+extension PresentationController: UIGestureRecognizerDelegate {
     
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
     
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard let controller = self.controller, controller.currentlyTranstionRunning == true else {
+            let translation = panGesture.translation(in: panGesture.view)
+            let translationIsVertical = (translation.y > 0) && (abs(translation.y) > abs(translation.x))
+            return translationIsVertical
+        }
+               
+        return controller.isInteractive
+    }
 }
 
