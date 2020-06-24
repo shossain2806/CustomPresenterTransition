@@ -13,6 +13,7 @@ class PresentationController: UIPresentationController {
     let backgroundView = UIView ()
     let panGesture : UIPanGestureRecognizer
     weak var controller : InteractiveTransitionController?
+    var dependentGesture : UIPanGestureRecognizer?
     
     init(presentedViewController: UIViewController,
          presenting presentingViewController: UIViewController?,
@@ -23,8 +24,7 @@ class PresentationController: UIPresentationController {
         super.init(presentedViewController: presentedViewController,
                    presenting: presentingViewController)
         configureBackgroundView()
-        configureGesture()
-        
+       
     }
     
     override var adaptivePresentationStyle: UIModalPresentationStyle {
@@ -62,6 +62,12 @@ class PresentationController: UIPresentationController {
         }
     }
     
+    override func presentationTransitionDidEnd(_ completed: Bool) {
+        if completed {
+             configureGesture()
+        }
+    }
+    
     //to make disappearing animation interruptible we cannot use `dismissalTransitionWillBegin`
     var dimissAnimation : () -> Void {
         let animationClosure = { [unowned self] in
@@ -80,6 +86,25 @@ extension PresentationController {
         presentedView?.addGestureRecognizer(panGesture)
         panGesture.delegate = self
         panGesture.addTarget(self, action: #selector(initiateInteractively(_:)))
+       
+        if let navController = presentedViewController as? UINavigationController {
+            navController.topViewController?.view.subviews.forEach({ subView in
+                if let scrollView = subView as? UIScrollView {
+                    let gesture = scrollView.panGestureRecognizer
+                    gesture.require(toFail: panGesture)
+                    dependentGesture = gesture
+                }
+            })
+        }
+        else {
+            presentedView?.subviews.forEach({ subview in
+                if let scrollView = subview as? UIScrollView {
+                    let gesture = scrollView.panGestureRecognizer
+                     gesture.require(toFail: panGesture)
+                     dependentGesture = gesture
+                }
+            })
+        }
         
     }
     
@@ -116,21 +141,22 @@ extension PresentationController {
 }
 
 extension PresentationController: UIGestureRecognizerDelegate {
-    
-    func gestureRecognizer(
-        _ gestureRecognizer: UIGestureRecognizer,
-        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
+        
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    
         guard let controller = self.controller, controller.currentlyTranstionRunning == true else {
             let translation = panGesture.translation(in: panGesture.view)
-            let translationIsVertical = (translation.y > 0) && (abs(translation.y) > abs(translation.x))
-            return translationIsVertical
+            let translationIsVertical = (translation.y > 0) 
+            var offSetY : CGFloat = 0
+            if let scrollView = dependentGesture?.view as? UIScrollView {
+                offSetY = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
+            }
+            let isZeroOffset = offSetY == 0
+            return translationIsVertical && isZeroOffset
         }
                
         return controller.isInteractive
     }
+    
 }
 

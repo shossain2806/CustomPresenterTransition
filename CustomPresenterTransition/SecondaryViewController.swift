@@ -9,11 +9,13 @@
 import UIKit
 
 class SecondaryViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let rightButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(btnDismissPressed))
         self.navigationItem.rightBarButtonItem = rightButton
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.title = "Secondary"
         configureTableView()
     }
     

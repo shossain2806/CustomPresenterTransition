@@ -33,6 +33,5 @@ class PresentingAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         }
         
         animator.startAnimation()
-        
     }
 }

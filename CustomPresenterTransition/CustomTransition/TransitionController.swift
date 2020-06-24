@@ -48,7 +48,6 @@ class TransitionController: NSObject, UIViewControllerTransitioningDelegate {
         return PresentingAnimator()
     }
     
-    
     //interactive transition in dismissing
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self
@@ -57,7 +56,6 @@ class TransitionController: NSObject, UIViewControllerTransitioningDelegate {
     func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return self
     }
-    
 }
 
 //MARK:- Manage interactive dismiss transition

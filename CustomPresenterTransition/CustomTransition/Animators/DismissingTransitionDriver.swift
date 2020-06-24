@@ -106,6 +106,4 @@ class DismissingTransitionDriver: NSObject {
             transitionAnimator.continueAnimation(withTimingParameters: nil, durationFactor: durationFactor)
         }
     }
-    
-    
 }
